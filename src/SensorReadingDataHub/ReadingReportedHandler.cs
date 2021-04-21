@@ -17,7 +17,7 @@ namespace SensorReadingDataHub
 
         public async Task Handle(ReadingReported notification, CancellationToken cancellationToken)
         {
-            await _context.SensorReadings.AddRangeAsync(notification.Readings.Select(_ => new SensorReading(_)));
+             _context.SensorReadings.UpdateRange(notification.Readings.Select(_ => new SensorReading(_)));
             await _context.SaveChangesAsync();
         }
     }
