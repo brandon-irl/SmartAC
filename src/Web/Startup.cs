@@ -25,19 +25,18 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup)); 
-            services.AddRazorPages();
-            //services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddRegistration(Configuration.GetConnectionString("Registration"));
+            services.AddSensorReadingDataHub(Configuration.GetConnectionString("SensorReadingDataHub"));
+            services.AddAdministration(Configuration.GetConnectionString("Administration"));
 
+            services.AddMediatR(typeof(Startup));
+            services.AddRazorPages(options => options.Conventions.AuthorizeFolder("/Devices"));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => options.LoginPath = "/login");
+                    .AddCookie();
 
             services.AddControllers();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartACHub", Version = "v1" }));
 
-            services.AddRegistration(Configuration.GetConnectionString("Registration"));
-            services.AddSensorReadingDataHub(Configuration.GetConnectionString("SensorReadingDataHub"));
-            services.AddAdministration(Configuration.GetConnectionString("Administration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,9 +65,7 @@ namespace Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapSensorReadingDataHub();
                 endpoints.MapRegistration();

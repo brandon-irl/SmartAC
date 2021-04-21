@@ -7,55 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        [HttpGet]
-        public IActionResult Login(string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
-        private bool ValidateLogin(string userName, string password)
-        {
-            // For this prototype, all logins are successful.
-            return true;
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-
-            // Normally Identity handles sign in, but you can do it directly
-            if (ValidateLogin(userName, password))
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim("user", userName),
-                    new Claim("role", "Member")
-                };
-
-                await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme, "user", "role")));
-
-                if (Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    return Redirect("/");
-                }
-            }
-
-            return View();
-        }
-
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
-            return Redirect("/");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Account/SignedOut");
         }
     }
 }

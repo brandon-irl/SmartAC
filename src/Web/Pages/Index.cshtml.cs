@@ -20,7 +20,6 @@ namespace Web.Pages
 
         public void OnGet()
         {
-
         }
     }
 }

@@ -1,5 +1,5 @@
 @page
-@model DevicesModel
+@model IndexModel
 @{
     ViewData["Title"] = "Devices";
 }
@@ -23,6 +23,7 @@
                     <th>
                         @Html.DisplayNameFor(mode => Model.Devices[0].FirmwareVersion)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(_ => device.FirmwareVersion)
+                        </td>
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@device.SerialNumber">Details</a>
                         </td>
                     </tr>
                 }
