@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,11 +15,11 @@ namespace Web.Pages
             _mediator = mediator;
         }
 
-        public IEnumerable<IDevice> Devices {get; set;}
+        public List<IDevice> Devices {get; set;}
 
         public async Task OnGetAsync()
         {
-            Devices = await _mediator.Send(new DeviceQuery());
+            Devices = (await _mediator.Send(new DeviceQuery())).ToList();
         }
     }
 }

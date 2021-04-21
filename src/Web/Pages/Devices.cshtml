@@ -5,7 +5,44 @@
 }
 
 <div>
-    <h1>@Model.Devices.Count()</h1>
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+   <div class="table-responsive">
+        <table class="table table-sm table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-asp-page="./Devices">
+                            @Html.DisplayNameFor(mode => Model.Devices[0].SerialNumber)
+                        </a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.Devices[0].RegistrationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.Devices[0].FirmwareVersion)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var device in Model.Devices)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(_ => device.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => device.RegistrationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => device.FirmwareVersion)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
