@@ -8,8 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SensorReadingDataHub;
 using Registration;
+using SensorReadingDataHub;
+using Administration;
 
 namespace Web
 {
@@ -26,6 +27,8 @@ namespace Web
                 registrationDb.Database.Migrate();
                 var deviceDb = scope.ServiceProvider.GetRequiredService<SensorReadingContext>();
                 deviceDb.Database.Migrate();
+                var administrationDb = scope.ServiceProvider.GetRequiredService<AdministrationContext>();
+                administrationDb.Database.Migrate();
             }
             host.Run();
         }

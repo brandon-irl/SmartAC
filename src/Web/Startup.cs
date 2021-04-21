@@ -6,8 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MediatR;
-using SensorReadingDataHub;
 using Registration;
+using SensorReadingDataHub;
+using Administration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Web
@@ -36,6 +37,7 @@ namespace Web
 
             services.AddRegistration(Configuration.GetConnectionString("Registration"));
             services.AddSensorReadingDataHub(Configuration.GetConnectionString("SensorReadingDataHub"));
+            services.AddAdministration(Configuration.GetConnectionString("Administration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +72,7 @@ namespace Web
                 endpoints.MapRazorPages();
                 endpoints.MapSensorReadingDataHub();
                 endpoints.MapRegistration();
+                endpoints.MapAdministration();
             });
         }
     }
