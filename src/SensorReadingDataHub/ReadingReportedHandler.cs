@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SensorReadingDataHub.Contracts;
 
 namespace SensorReadingDataHub
@@ -17,7 +18,7 @@ namespace SensorReadingDataHub
 
         public async Task Handle(ReadingReported notification, CancellationToken cancellationToken)
         {
-             _context.SensorReadings.UpdateRange(notification.Readings.Select(_ => new SensorReading(_)));
+            _context.SensorReadings.UpsertRange(notification.Readings.Select(_ => new SensorReading(_)));
             await _context.SaveChangesAsync();
         }
     }
