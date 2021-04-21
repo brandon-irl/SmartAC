@@ -15,6 +15,8 @@ namespace Registration
             builder.Entity<Device>(entity =>
             {
                 entity.HasKey(e => e.SerialNumber);
+                entity.Property(e => e.RegistrationDate)
+                      .HasDefaultValueSql("DATETIME('now')");
                 entity.ToTable(nameof(Device));
             });
 

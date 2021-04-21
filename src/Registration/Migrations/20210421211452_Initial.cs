@@ -12,7 +12,7 @@ namespace Registration.Migrations
                 columns: table => new
                 {
                     SerialNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATETIME('now')"),
                     FirmwareVersion = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

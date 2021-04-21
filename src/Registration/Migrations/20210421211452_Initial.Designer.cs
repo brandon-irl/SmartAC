@@ -9,7 +9,7 @@ using Registration;
 namespace Registration.Migrations
 {
     [DbContext(typeof(RegistrationContext))]
-    [Migration("20210421055638_Initial")]
+    [Migration("20210421211452_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,9 @@ namespace Registration.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("DATETIME('now')");
 
                     b.HasKey("SerialNumber");
 

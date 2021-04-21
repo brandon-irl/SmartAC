@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -18,7 +19,9 @@ namespace Registration
 
         public async Task<IEnumerable<IDevice>> Handle(DeviceQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Devices.ToListAsync();
+            var filter = request.SerialNumbers != null && request.SerialNumbers.Any();
+            return await _context.Devices.Where(_ => filter ? request.SerialNumbers.Contains(_.SerialNumber) : true)
+                                         .ToListAsync();
         }
     }
 }

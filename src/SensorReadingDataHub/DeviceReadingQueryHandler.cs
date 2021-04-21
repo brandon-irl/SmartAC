@@ -19,7 +19,8 @@ namespace SensorReadingDataHub
 
         public async Task<IEnumerable<ISensorReading>> Handle(DeviceReadingQuery request, CancellationToken cancellationToken)
         {
-            return await _context.SensorReadings.Where(_ => request.SerialNumbers.Contains(_.DeviceSerialNumber))
+            var filter = request.SerialNumbers != null && request.SerialNumbers.Any();
+            return await _context.SensorReadings.Where(_ => filter ? request.SerialNumbers.Contains(_.DeviceSerialNumber) : true)
                                                 .ToListAsync();
         }
     }
