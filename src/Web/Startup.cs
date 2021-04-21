@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +8,9 @@ using Microsoft.OpenApi.Models;
 using MediatR;
 using SensorReadingDataHub;
 using Registration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace SmartACHub
+namespace Web
 {
     public class Startup
     {
@@ -31,6 +27,9 @@ namespace SmartACHub
             services.AddMediatR(typeof(Startup)); 
             services.AddRazorPages();
             //services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/login");
 
             services.AddControllers();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartACHub", Version = "v1" }));
@@ -60,10 +59,14 @@ namespace SmartACHub
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapSensorReadingDataHub();
                 endpoints.MapRegistration();

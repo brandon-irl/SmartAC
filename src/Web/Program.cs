@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using SensorReadingDataHub;
 using Registration;
 
-namespace SmartACHub
+namespace Web
 {
     public class Program
     {
