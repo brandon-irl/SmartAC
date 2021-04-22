@@ -45,7 +45,7 @@ namespace Web
                     Version = "v1",
                     Title = "Smart AC",
                     Description = "Prototype demo for the Smart AC backend service",
-                    Contact =   new OpenApiContact
+                    Contact = new OpenApiContact
                     {
                         Name = "Brandon Alexander",
                         Email = "me@brandonalexander.dev",
@@ -62,8 +62,6 @@ namespace Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart AC v1"));
             }
             else
             {
@@ -71,6 +69,9 @@ namespace Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart AC v1"));
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
