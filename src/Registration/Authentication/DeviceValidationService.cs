@@ -1,34 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Security.Authentication;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace Registration.Authentication
 {
     public class DeviceValidationService
     {
-        private readonly IEnumerable<DeviceCredentials> devices;
+        private readonly DeviceSecretProvider keyProvider;
 
-        public DeviceValidationService()
+        public DeviceValidationService(DeviceSecretProvider keyProvider)
         {
-            devices = new List<DeviceCredentials> {
-                new() {
-                    SerialNumber = "123456789",
-                    Secret = "This should be hashed"
-                    }
-            };
+            this.keyProvider = keyProvider;
         }
 
-        public void ValidateCredentials(DeviceCredentials DeviceCredentials)
+        public async Task ValidateCredentials(DeviceCredentials DeviceCredentials)
         {
-            bool isValid =
-                devices.Any(d =>
-                    d.SerialNumber == DeviceCredentials.SerialNumber &&
-                    d.Secret == DeviceCredentials.Secret);
-
-            if (!isValid)
-            {
+            if(DeviceCredentials == null || DeviceCredentials.SerialNumber == null)
                 throw new InvalidCredentialException();
-            }
+
+            var secrets = await keyProvider.GetSecrets();
+            
+            if (!secrets.ContainsKey(DeviceCredentials.SerialNumber) || secrets[DeviceCredentials.SerialNumber] != DeviceCredentials.Secret)
+                throw new InvalidCredentialException();
         }
+
     }
 }

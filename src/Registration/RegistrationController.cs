@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Registration.Authentication;
 
 namespace Registration
 {
@@ -13,20 +11,30 @@ namespace Registration
     public class RegistrationController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private AuthenticationService _authService;
 
-        public RegistrationController(IMediator mediator)
+        public RegistrationController(IMediator mediator, AuthenticationService authService)
         {
             _mediator = mediator;
+            _authService = authService;
         }
 
         [HttpPost]
         [Consumes("application/json")]
-        public async Task<IActionResult> Post(Device newDevice)
+        public async Task<IActionResult> Post(Registration reg)
         {
-            //TODO: validation and authentication
-            await _mediator.Send(new RegisterDeviceCommand(newDevice));
-            // TODO: what is the client expecting? If failure, will they try again?
-            return NoContent();
+            try
+            {
+                string token = await _authService.Authenticate(reg.Credentials);
+                await _mediator.Send(new RegisterDeviceCommand(new Device { SerialNumber = reg.Credentials.SerialNumber, FirmwareVersion = reg.FirmwareVersion }));
+                // TODO: what is the client expecting? If failure, will they try again?
+                return Ok(token);
+            }
+            catch (InvalidCastException)
+            {
+                return Unauthorized();
+            }
+
         }
     }
 }

@@ -20,4 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Registration.Contracts\Registration.Contracts.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Devices.txt" />
+  </ItemGroup>
 </Project>

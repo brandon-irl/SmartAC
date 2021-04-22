@@ -18,7 +18,11 @@ namespace SensorReadingDataHub
 
         public async Task Handle(ReadingReported notification, CancellationToken cancellationToken)
         {
-            _context.SensorReadings.UpsertRange(notification.Readings.Select(_ => new SensorReading(_)));
+            var readings = notification.Readings.Select(_ => new SensorReading(_));
+            // TODO: figure out Upsert
+            foreach(var reading in readings)            
+                if(! await _context.SensorReadings.ContainsAsync(reading))
+                    await _context.SensorReadings.AddAsync(reading);
             await _context.SaveChangesAsync();
         }
     }

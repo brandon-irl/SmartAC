@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Registration.Contracts;
 
 namespace Registration
@@ -25,8 +26,13 @@ namespace Registration
         }
         public async Task<Unit> Handle(RegisterDeviceCommand request, CancellationToken cancellationToken)
         {
-            _context.Devices.Add(new Device(request.Device));
-            await _context.SaveChangesAsync();
+            var device = new Device(request.Device);
+            // TODO: figure out Upsert
+            if (!await _context.Devices.ContainsAsync(device))
+            {
+                await _context.Devices.AddAsync(device);
+                await _context.SaveChangesAsync();
+            }
             return Unit.Value;
         }
     }

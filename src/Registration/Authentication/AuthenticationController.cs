@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
+using System.Threading.Tasks;
 
 namespace Registration.Authentication
 {
@@ -16,11 +17,11 @@ namespace Registration.Authentication
         }
 
         [HttpPost]
-        public IActionResult Authenticate([FromBody] DeviceCredentials deviceCredentials)
+        public async Task<IActionResult> Authenticate([FromBody] DeviceCredentials deviceCredentials)
         {
             try
             {
-                string token = authenticationService.Authenticate(deviceCredentials);
+                string token = await authenticationService.Authenticate(deviceCredentials);
                 return Ok(token);
             }
             catch (InvalidCredentialException)
@@ -33,8 +34,9 @@ namespace Registration.Authentication
     [Route("identity/[controller]")]
     public class ValidationController : ControllerBase
     {
+        [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IActionResult Validate()
+        public async Task<IActionResult> Validate()
         {
             return Ok();
         }

@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SensorReadingDataHub.Contracts;
 
-namespace SensorReadingDataHub
+namespace SensorReadingDataHub.Controllers
 {
 
     [Route("sensors")]
     [ApiController]
-    public class DeviceController : ControllerBase
+    public class SensorReadingController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public DeviceController(IMediator mediator)
+        public SensorReadingController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Consumes("application/json")]
         public async Task<IActionResult> Post(DeviceReading data)
         {

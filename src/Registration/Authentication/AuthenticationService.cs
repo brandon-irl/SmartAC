@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Registration.Authentication
 {
     public class AuthenticationService
@@ -10,12 +12,10 @@ namespace Registration.Authentication
             _tokenService = tokenService;
         }
 
-        public string Authenticate(DeviceCredentials DeviceCredentials)
+        public async Task<string> Authenticate(DeviceCredentials DeviceCredentials)
         {
-            _deviceService.ValidateCredentials(DeviceCredentials);
-            string securityToken = _tokenService.GetToken();
-
-            return securityToken;
+            await _deviceService.ValidateCredentials(DeviceCredentials);
+            return _tokenService.GetToken();
         }
     }
 }

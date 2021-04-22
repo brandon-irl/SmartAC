@@ -356,3 +356,5 @@ MigrationBackup/
 *.db*
 
 .vscode/
+
+*.http

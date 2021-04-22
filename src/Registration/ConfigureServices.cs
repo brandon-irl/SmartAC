@@ -48,6 +48,7 @@ namespace Registration
             services.AddTransient<AuthenticationService>();
             services.AddTransient<DeviceValidationService>();
             services.AddTransient<TokenService>();
+            services.AddSingleton<DeviceSecretProvider>();
         }
     }
 }
