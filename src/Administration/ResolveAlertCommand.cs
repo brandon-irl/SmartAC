@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -6,10 +8,12 @@ namespace Administration
 {
     public class ResolveAlertCommand : IRequest
     {
-        int AlertId { get; }
-        public ResolveAlertCommand(int alertId)
+        public int AlertId { get; }
+        public string Username { get; }
+        public ResolveAlertCommand(int alertId, string username)
         {
             AlertId = alertId;
+            Username = username;
         }
     }
 
@@ -22,10 +26,14 @@ namespace Administration
         {
             _context = context;
         }
-        
-        public Task<Unit> Handle(ResolveAlertCommand request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(ResolveAlertCommand request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var alert = _context.Alerts.Where(_ => request.AlertId == _.Id).FirstOrDefault();
+            if (alert != null)
+                alert.ResolveAlert(request.Username);
+            await _context.SaveChangesAsync();
+            return Unit.Value;
         }
     }
 
