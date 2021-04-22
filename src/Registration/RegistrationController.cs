@@ -6,7 +6,7 @@ using Registration.Authentication;
 
 namespace Registration
 {
-    [Route("register")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class RegistrationController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace Registration
 
         [HttpPost]
         [Consumes("application/json")]
-        public async Task<IActionResult> Post(Registration reg)
+        public async Task<IActionResult> Register(Registration reg)
         {
             try
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Registration.Authentication
 {
-    [Route("identity/[controller]")]
+    [Route("[controller]/[action]")]
     public class AuthenticationController : ControllerBase
     {
         private readonly AuthenticationService authenticationService;
@@ -17,6 +17,7 @@ namespace Registration.Authentication
         }
 
         [HttpPost]
+        [Consumes("application/json")]
         public async Task<IActionResult> Authenticate([FromBody] DeviceCredentials deviceCredentials)
         {
             try
@@ -29,15 +30,12 @@ namespace Registration.Authentication
                 return Unauthorized();
             }
         }
-    }
 
-    [Route("identity/[controller]")]
-    public class ValidationController : ControllerBase
-    {
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Validate()
         {
+            await Task.CompletedTask;
             return Ok();
         }
     }

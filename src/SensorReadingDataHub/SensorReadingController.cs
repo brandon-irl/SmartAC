@@ -12,7 +12,7 @@ using SensorReadingDataHub.Contracts;
 namespace SensorReadingDataHub.Controllers
 {
 
-    [Route("sensors")]
+    [Route("Sensors/[action]")]
     [ApiController]
     public class SensorReadingController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace SensorReadingDataHub.Controllers
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Consumes("application/json")]
-        public async Task<IActionResult> Post(DeviceReading data)
+        public async Task<IActionResult> SubmitReading(DeviceReading data)
         {
             await _mediator.Publish(new ReadingReported { Readings = data.SensorReadings.Select(_ => _ with { DeviceSerialNumber = data.SerialNumber }) });
             return NoContent();

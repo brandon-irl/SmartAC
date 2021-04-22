@@ -38,7 +38,22 @@ namespace Web
             }).AddCookie();
 
             services.AddControllers();
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartACHub", Version = "v1" }));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new()
+                {
+                    Version = "v1",
+                    Title = "Smart AC",
+                    Description = "Prototype demo for the Smart AC backend service",
+                    Contact =   new OpenApiContact
+                    {
+                        Name = "Brandon Alexander",
+                        Email = "me@brandonalexander.dev",
+                        Url = new("https://brandonalexander.dev")
+                    }
+                });
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +63,7 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartACHub v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart AC v1"));
             }
             else
             {

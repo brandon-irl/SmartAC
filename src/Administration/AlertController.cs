@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Administration
 {
-    [Route("alerts")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class AlertController : ControllerBase
     {
@@ -20,13 +20,13 @@ namespace Administration
         }
 
         [HttpGet]
+        [Produces("application/json")]
         public async Task<IEnumerable<Alert>> Get()
         {
             return await _mediator.Send(new AlertQuery());
         }
 
         [HttpPost]
-        [Route("resolve")]
         public async Task<IActionResult> Resolve(int alertId)
         {
             await _mediator.Send(new ResolveAlertCommand(alertId));
