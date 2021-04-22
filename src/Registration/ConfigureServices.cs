@@ -21,23 +21,20 @@ namespace Registration
             var settings = section.Get<AppSettings>();
             var signingKey = Encoding.UTF8.GetBytes(settings.EncryptionKey);
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(jwtOptions =>
-            {
-                jwtOptions.SaveToken = true;
-                jwtOptions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(signingKey),
-                    ValidateLifetime = true,
-                    LifetimeValidator = LifetimeValidator
-                };
-            });
+            services.AddAuthentication()
+                    .AddJwtBearer(jwtOptions =>
+                    {
+                        jwtOptions.SaveToken = true;
+                        jwtOptions.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false,
+                            ValidateIssuer = false,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(signingKey),
+                            ValidateLifetime = true,
+                            LifetimeValidator = LifetimeValidator
+                        };
+                    });
 
             bool LifetimeValidator(DateTime? notBefore,
                 DateTime? expires,
