@@ -25,9 +25,9 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRegistration(Configuration.GetConnectionString("Registration"));
-            services.AddSensorReadingDataHub(Configuration.GetConnectionString("SensorReadingDataHub"));
-            services.AddAdministration(Configuration.GetConnectionString("Administration"));
+            services.AddRegistration(Configuration);
+            services.AddSensorReadingDataHub(Configuration);
+            services.AddAdministration(Configuration);
 
             services.AddMediatR(typeof(Startup));
             services.AddRazorPages(options => options.Conventions.AuthorizeFolder("/Devices"));
@@ -36,7 +36,6 @@ namespace Web
 
             services.AddControllers();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartACHub", Version = "v1" }));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
