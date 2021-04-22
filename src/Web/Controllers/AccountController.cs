@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers
 {
     [Route("[controller]/[action]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountController : Controller
     {
         [HttpPost]

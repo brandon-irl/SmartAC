@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>
-                        <a asp-asp-page="./Devices">
+                        <a asp-page="./Devices">
                             @Html.DisplayNameFor(mode => Model.Devices[0].SerialNumber)
                         </a>
                     </th>
@@ -40,7 +40,7 @@
                             @Html.DisplayFor(_ => device.FirmwareVersion)
                         </td>
                         <td>
-                            <a asp-page="./Details" asp-route-id="@device.SerialNumber">Details</a>
+                            <a asp-page="./Details" asp-route-serialnumber="@device.SerialNumber">Details</a>
                         </td>
                     </tr>
                 }

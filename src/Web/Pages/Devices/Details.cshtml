@@ -1,2 +1,54 @@
-@page "{id:int}"
+@page "{serialNumber?}"
 @model Web.Pages.Devices.DetailsModel
+
+<div>
+    <h1>@Model.Device.SerialNumber</h1>
+    <hr />
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.SensorReadings[0].Time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.SensorReadings[0].Temperature)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.SensorReadings[0].Humidity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.SensorReadings[0].COLevel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(mode => Model.SensorReadings[0].HealthStatus)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sr in Model.SensorReadings)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(_ => sr.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => sr.Temperature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => sr.Humidity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => sr.COLevel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(_ => sr.HealthStatus)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -63,14 +63,11 @@ namespace Web.Pages.Account
                     new Claim(ClaimTypes.Name, user.UserName)
                 };
 
-                var claimsIdentity = new ClaimsIdentity(
-                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return LocalRedirect(returnUrl);
+                return LocalRedirect(returnUrl ?? "/");
             }
 
             // Something failed. Redisplay the form.
@@ -84,7 +81,7 @@ namespace Web.Pages.Account
             // Assume that checking the database takes 500ms
 
             await Task.Delay(500);
-            return new ApplicationUser{UserName = userName};
+            return new ApplicationUser { UserName = userName };
         }
     }
 }
