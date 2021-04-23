@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SensorReadingDataHub
 {
@@ -8,6 +9,7 @@ namespace SensorReadingDataHub
         [Required]
         public string SerialNumber { get; init; }
         [Required]
-        public IEnumerable<SensorReading> SensorReadings { get; init; }
+        [JsonConverter(typeof(SingleOrArrayConverter<SensorReading>))]
+        public List<SensorReading> SensorReadings { get; init; }
     }
 }
