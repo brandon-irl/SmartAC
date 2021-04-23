@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Administration.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Administration
@@ -29,7 +28,7 @@ namespace Administration
         [Produces("application/json")]
         public async Task<IEnumerable<Alert>> Get()
         {
-            return await _mediator.Send(new AlertQuery());
+            return (await _mediator.Send(new AlertQuery())).Select(_ => new Alert(_));
         }
 
         [HttpPost]

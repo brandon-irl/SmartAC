@@ -30,6 +30,7 @@ Since this is a prototype application, there are some aspects that have been par
     * In the registration service, device serial numbers and secrets are hard coded on a file on disk
 * All separate services are hosted by the same ASP.Net web application for ease of deployment and configuration
 * There are no data verification or formatting restrictions beyond that of their underlying data type
+* Data views in the web portal are arbitrarily limited to 50 records
 * Common application functions such as error recovery, logging, and monitoring have been foregone
 * The application is standalone and is not supported by other services such as a reverse proxy or container orchestrator
 * There is no defined CI\CD process

@@ -4,26 +4,26 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
-
-<div class="row">
-    <div class="col-md-8">
-        <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <div class="form-group">
-
-                    <div class="form-group">
-                        <label asp-for="Input.UserName"></label>
-                        <input class="form-control" asp-for="Input.UserName" placeholder="Enter Username">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Input.Password">Password</label>
-                        <input type="password" class="form-control" asp-for="Input.Password" placeholder="Password">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </section>
-    </div>
+<div class="text-center" cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <form class="form-signin" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"
+        method="post" role="form">
+        <img class="mb-4" src="/images/Air_conditioner.svg" alt="" width="125" height="125">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div class="form-group">
+            <label asp-for="Input.Username" class="sr-only"></label>
+            <input class="form-control" asp-for="Input.Username" placeholder="Enter Username" required autofocus>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Password" class="sr-only">Password</label>
+            <input type="password" class="form-control" asp-for="Input.Password" placeholder="Password" required>
+        </div>
+        @*
+            <div class="checkbox mb-3">
+            <label>
+            <input type="checkbox" value="remember-me"> Remember me
+            </label>
+            </div> *@
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    </form>
 </div>

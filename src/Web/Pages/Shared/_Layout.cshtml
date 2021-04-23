@@ -7,53 +7,46 @@
     <title>@ViewData["Title"] - Smart AC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-</head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Smart AC</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Devices/Index">Devices</a>
-                        </li>
-                    </ul>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                            <button class="btn btn-light my-2 my-sm-0" type="submit">Log out</button>
-                        </form>
-                    }
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Brandon Alexander - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
 
-    @await RenderSectionAsync("Scripts", required: false)
+<body>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">SmartAC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <div class="mr-auto navbar-nav">
+                    <a class="nav-link" asp-page="/Index">Home</a>
+                    <a class="nav-link" asp-area="" asp-page="/Devices/Index">Dashboard</a>
+                    @* <a class="nav-link" href="#">Contact</a> *@
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                        <button class="btn btn-light my-2 my-sm-0" type="submit">Log out</button>
+                    </form>
+                }
+            </div>
+        </nav>
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>&copy; 2021 - Created by - <a href="https://brandonalexander.dev">Brandon Alexander</a></p>
+            </div>
+        </footer>
+
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

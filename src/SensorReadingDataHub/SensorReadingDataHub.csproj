@@ -19,5 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SensorReadingDataHub.Contracts\SensorReadingDataHub.Contracts.csproj" />
+    <ProjectReference Include="..\Administration.Contracts\Administration.Contracts.csproj" />
   </ItemGroup>
 </Project>

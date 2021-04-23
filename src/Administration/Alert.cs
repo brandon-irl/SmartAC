@@ -1,9 +1,21 @@
 using System;
+using Administration.Contracts;
 
 namespace Administration
 {
-    public record Alert
+    public record Alert : IAlert
     {
+        public Alert(){}
+        public Alert(IAlert alert)
+        {
+            Id = alert.Id;
+            DeviceSerialNumber = alert.DeviceSerialNumber;
+            Message = alert.Message;
+            Time = alert.Time;
+            Resolved = alert.Resolved;
+            UserResolved = alert.UserResolved;
+        }
+
         public int Id { get; init; }
         public string DeviceSerialNumber { get; init; }
         public string Message { get; init; }

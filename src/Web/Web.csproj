@@ -25,5 +25,6 @@
     <ProjectReference Include="..\Registration.Contracts\Registration.Contracts.csproj" />
     <ProjectReference Include="..\SensorReadingDataHub\SensorReadingDataHub.csproj" />
     <ProjectReference Include="..\Administration\Administration.csproj" />
+    <ProjectReference Include="..\Administration.Contracts\Administration.Contracts.csproj" />
   </ItemGroup>
 </Project>

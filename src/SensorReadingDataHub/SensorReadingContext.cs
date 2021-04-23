@@ -14,6 +14,7 @@ namespace SensorReadingDataHub
             builder.Entity<SensorReading>(entity =>
             {
                 entity.HasKey(e => new { e.DeviceSerialNumber, e.Time });
+                entity.Ignore(e => e.Alerts);
                 entity.ToTable(nameof(SensorReading));
             });
         }

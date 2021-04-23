@@ -24,7 +24,7 @@ namespace Web.Pages.Account
         public class InputModel
         {
             [Required]
-            public string UserName { get; set; }
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -50,7 +50,7 @@ namespace Web.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = await AuthenticateUser(Input.UserName, Input.Password);
+                var user = await AuthenticateUser(Input.Username, Input.Password);
 
                 if (user == null)
                 {
@@ -60,7 +60,7 @@ namespace Web.Pages.Account
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName)
+                    new Claim(ClaimTypes.Name, user.Username)
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -81,7 +81,7 @@ namespace Web.Pages.Account
             // Assume that checking the database takes 500ms
 
             await Task.Delay(500);
-            return new ApplicationUser { UserName = userName };
+            return new ApplicationUser { Username = userName };
         }
     }
 }

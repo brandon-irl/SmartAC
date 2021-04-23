@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Administration.Contracts;
 
 namespace SensorReadingDataHub.Contracts
 {
@@ -10,5 +12,6 @@ namespace SensorReadingDataHub.Contracts
         public int Humidity { get; init; }
         public int COLevel { get; init; }
         public string HealthStatus { get; init; }
+        public IEnumerable<IAlert> Alerts { get; init; }
     }
 }
