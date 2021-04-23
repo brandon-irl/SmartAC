@@ -16,7 +16,7 @@ All three services are hosted in an ASP.net app, which also hosts an administrat
 ### Prerequisites
 * .NET SDK 5
 * Any 32-bit encryption key
-### Steps ✅
+### Steps 🟢
 * Clone the repo and navigate to the Web project in the repo
 * Set the *AppSettings__EncryptionKey* app setting to your encryption key. You can do this a few ways
     * [dotnet User secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows)
@@ -34,6 +34,12 @@ The Web project can also be run in docker
 * Your app will be reachable at `http://localhost:8000`
 
 ⚠ NOTE: to use docker locally with HTTPS, you will need to set up your self-signed certificate and provide it to the container. See [the ASP.NET docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-5.0)
+
+## Testing the App ✔
+> `cd ./src`
+>
+> `dotnet test`
+⚠ NOTE: Testing framework is incomplete. Make sure you have the app reachable at `https://localhost:8001` or the tests will fail
 
 ## Endpoints 🌐
 The available endpoints are documents with [Swagger](https://swagger.io).

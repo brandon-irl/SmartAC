@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorReadingDataHub.Contra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administration.Contracts", "Administration.Contracts\Administration.Contracts.csproj", "{BCE22B1C-741B-4972-8A53-2757596A077B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorReadingDataHub.Tests", "SensorReadingDataHub.Tests\SensorReadingDataHub.Tests.csproj", "{FA6129BC-1466-45C0-9094-870C82513B9E}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,5 +116,17 @@ Global
 		{BCE22B1C-741B-4972-8A53-2757596A077B}.Release|x64.Build.0 = Release|Any CPU
 		{BCE22B1C-741B-4972-8A53-2757596A077B}.Release|x86.ActiveCfg = Release|Any CPU
 		{BCE22B1C-741B-4972-8A53-2757596A077B}.Release|x86.Build.0 = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|x64.Build.0 = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA6129BC-1466-45C0-9094-870C82513B9E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
