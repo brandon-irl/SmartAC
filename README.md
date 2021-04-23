@@ -1,5 +1,6 @@
+[Image of air conditioner](images/ac.svg)
 # Smart AC (Proof of Concept) 🧠
-### Prototype application written by [Brandon Alexander](brandonalexander.dev) for [Theorem, LLC](https://www.theorem.co/)
+##### Prototype application written by [Brandon Alexander](brandonalexander.dev) for [Theorem, LLC](https://www.theorem.co/)
 
 ## Overview
 Smart AC is a backend system designed to integrate with remote air conditioning units. It is comprised of three main services
@@ -9,6 +10,7 @@ Smart AC is a backend system designed to integrate with remote air conditioning 
 
 All three services are hosted in an ASP.net app, which also hosts an administration web portal. This web app is the main is the entryway to the application (see "Running the app" below).
 
+[Image of services diagrom](images/diagram.png)
 
 ## Running the app 🖥
 ### Prerequisites
@@ -33,6 +35,33 @@ The Web project can also be run in docker
 
 ⚠ NOTE: to use docker locally with HTTPS, you will need to set up your self-signed certificate and provide it to the container. See [the ASP.NET docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-5.0)
 
+## Endpoints 🌐
+The available endpoints are documents with [Swagger](https://swagger.io).
+- **Swagger UI**: http://theorem-smart-ac.herokuapp.com/swagger/index.html
+- **Swagger JSON**: http://theorem-smart-ac.herokuapp.com/swagger/v1/swagger.json
+
+A brief explanation of the available endpoints:
+>POST ​/Authentication​/Authenticate
+
+Authenticate remote device using device credentials. Returns authentication token
+
+>GET ​/Authentication​/Validate
+
+Validate authentication token using the `Authentication: Bearer` header
+
+>POST /Registration/Register
+
+Register a new device using device credentials. Return authentication token.
+
+>POST /Sensors/SubmitReading
+
+Submit device sensor readings 
+
+## ScreenShots 🖼
+#### [Home](images/screenshots/home.png)
+#### [Login](images/screenshots/login.png)
+#### [Device Dashboard](images/screenshots/devices.png)
+#### [Device Details](images/screenshots/details.png)
 
 ## Notes 📝
 Since this is a prototype application, there are some aspects that have been pared down or simulated.
@@ -47,5 +76,5 @@ Since this is a prototype application, there are some aspects that have been par
 * The application is standalone and is not supported by other services such as a reverse proxy or container orchestrator
 * There is no defined CI\CD process
 
-
+#
 made with 💙 by [Brandon Alexander](brandonalexander.dev)

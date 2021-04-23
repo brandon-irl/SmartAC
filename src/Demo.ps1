@@ -1,8 +1,9 @@
 param(
     [Parameter(Mandatory = $true)][string]$address,
     [Parameter(Mandatory = $true)][int]$port,
-    [string]$filepath = '.\Devices.txt',
-    [int]$numberOfDevices = 10
+    [string]$filepath = '\Devices.txt',
+    [int]$numberOfDevices = 10,
+    [bool]$registerall = $false
 )
 #-----------------------------------------------------------
 #               Function Declarations
@@ -23,7 +24,7 @@ class Device {
 Function LoadDevices {
     write-host "Loading mock devices..."
     $num = 0;
-    $devicestreamreader = New-Object System.IO.StreamReader($filepath)
+    $devicestreamreader = New-Object System.IO.StreamReader($PSScriptRoot + $filepath)
     while ($devicestreamreader.Peek() -ge 1 ) {
         [Device]$device = [Device]::new($devicestreamreader.ReadLine(), $devicestreamreader.ReadLine())
         $device
@@ -110,7 +111,12 @@ Function HoldUp {
 #-----------------------------------------------------------
 
 $devices = LoadDevices
-
+if ($registerall) {
+    $devices = $devices | ForEach-Object {
+        Register-Device $_ $false
+        $_
+    }
+}
 
 Register-Device $devices[0]
 
@@ -130,7 +136,7 @@ $timeout = New-TimeSpan -Minutes 10
 $sw = [Diagnostics.StopWatch]::StartNew()
 while ($sw.Elapsed -lt $timeout) {
     $i = $i % $devices.Count
-    SubmitSensorData $devices[$i] (Get-Random -InputObject ([bool]$true, [bool]$false)) $false
+    SubmitSensorData $devices[0] (Get-Random -InputObject ([bool]$true, [bool]$false)) $false
     $i++
     Start-Sleep -Seconds $gap
 }
