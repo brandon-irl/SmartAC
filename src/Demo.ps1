@@ -120,23 +120,23 @@ if ($registerall) {
 
 Register-Device $devices[0]
 
-SubmitSensorData $devices[0]
-
-Register-Device $devices[1]
 SubmitSensorData $devices[0] -wait $false
 
-SubmitSensorData $devices[1] $true
+Register-Device $devices[1]
+SubmitSensorData $devices[1] -wait $false
+
+SubmitSensorData $devices[0] $true
 
 Write-Host "Entering Loop..."
 HoldUp
 
 $gap = 60 / $devices.Count
 $i = 0
-$timeout = New-TimeSpan -Minutes 10
+$timeout = New-TimeSpan -Minutes 5
 $sw = [Diagnostics.StopWatch]::StartNew()
 while ($sw.Elapsed -lt $timeout) {
     $i = $i % $devices.Count
-    SubmitSensorData $devices[0] (Get-Random -InputObject ([bool]$true, [bool]$false)) $false
+    SubmitSensorData $devices[$i] (Get-Random -InputObject ([bool]$true, [bool]$false)) $false
     $i++
     Start-Sleep -Seconds $gap
 }
