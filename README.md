@@ -1,4 +1,4 @@
-# Smart AC (Proof of Concept)
+# Smart AC (Proof of Concept) 🧠
 ### Prototype application written by [Brandon Alexander](brandonalexander.dev) for [Theorem, LLC](https://www.theorem.co/)
 
 ## Overview
@@ -10,19 +10,31 @@ Smart AC is a backend system designed to integrate with remote air conditioning 
 All three services are hosted in an ASP.net app, which also hosts an administration web portal. This web app is the main is the entryway to the application (see "Running the app" below).
 
 
-## Running the app
+## Running the app 🖥
 ### Prerequisites
 * .NET SDK 5
-### Steps
+* Any 32-bit encryption key
+### Steps ✅
 * Clone the repo and navigate to the Web project in the repo
-* Set the *AppSettings__EncryptionKey* app setting. You can do this a few ways
+* Set the *AppSettings__EncryptionKey* app setting to your encryption key. You can do this a few ways
     * [dotnet User secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows)
         * when using this method, replace the "`__`" in the key with an "`:`" i.e. *AppSettings:EncryptionKey*
     * [Environment variables](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0#environment-variables)
     * See [the ASP.NET docs](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0#environment-variables) for more info
-* Run `dotnet build`
+* > dotnet build
 
-## Notes
+### Docker 🐳
+The Web project can also be run in docker
+> cd /Web/build
+>
+> build.ps1 -production [False|True] -key *YOURENCRYPTIONKEY* -certname *YOURCERTNAME* -certpw *YOURCERTPASSWORD*
+
+* Your app will be reachable at `http://localhost:8000`
+
+⚠ NOTE: to use docker locally with HTTPS, you will need to set up your self-signed certificate and provide it to the container. See [the ASP.NET docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-5.0)
+
+
+## Notes 📝
 Since this is a prototype application, there are some aspects that have been pared down or simulated.
 * Databases is SQLite, which has limitations inherent to it's in-process architecture (e.g. speed)
 * User sources are simulated very loosely
@@ -36,4 +48,4 @@ Since this is a prototype application, there are some aspects that have been par
 * There is no defined CI\CD process
 
 
-made by [Brandon Alexander](brandonalexander.dev)
+made with 💙 by [Brandon Alexander](brandonalexander.dev)
